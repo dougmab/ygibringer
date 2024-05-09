@@ -1,0 +1,40 @@
+.body {
+    -fx-background-color: #18192e;
+}
+
+.history {
+    -fx-background-color: #10101b;
+
+}
+
+.text-color {
+-fx-text-fill: #fff;
+}
+
+.button-st {
+    -fx-background-color: #02bf02;
+}
+
+.button-sh {
+    -fx-background-color: #ec0a0a;
+}
+
+.select {
+    -fx-background-color: #04a7da;
+}
+
+.stat-ok {
+    -fx-fill: lightgreen;
+}
+
+.stat-error {
+    -fx-fill: red;
+}
+
+.stat-pending {
+    -fx-fill: orange;
+}
+
+.stat-inuse {
+    -fx-fill: cyan;
+}
