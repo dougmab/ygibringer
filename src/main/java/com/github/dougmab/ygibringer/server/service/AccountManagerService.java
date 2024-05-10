@@ -2,6 +2,7 @@ package com.github.dougmab.ygibringer.server.service;
 
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
+import com.github.dougmab.ygibringer.server.exception.EndOfListException;
 import com.github.dougmab.ygibringer.server.model.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,10 @@ public class AccountManagerService {
 
     public Account getNextAccount(String clientId) {
         // Associates account to client
-        Account account = AccountManagerService.accounts.remove();
+        Account account = AccountManagerService.accounts.poll();
+
+        if (account == null) throw new EndOfListException("Account list has reached it's end");
+
         account.setStatus("CONFIGURANDO");
         managedAccounts.put(clientId, account);
         return account;
