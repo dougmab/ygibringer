@@ -1,0 +1,21 @@
+.option {
+    -fx-font-size: 14;
+}
+
+.side-section {
+    -fx-padding: 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.side-section-bg{
+    -fx-background-color: #fff;
+
+}
+
+.option-btn {
+    -fx-background-color: #000;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-text-fill: #fff;
+}

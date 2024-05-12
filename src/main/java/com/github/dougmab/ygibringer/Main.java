@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         ConfigurationService.load();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/panel.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/app.fxml")));
         Scene scene = new Scene(root);
 
         stage.setResizable(false);

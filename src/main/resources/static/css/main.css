@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../font/Roboto/Roboto-Regular.ttf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../font/Roboto/Roboto-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../font/Roboto/Roboto-Light.ttf');
+    font-weight: light;
+}
+
+.body {
+    -fx-padding: 0 10 10 0;
+    -fx-font-family: "Roboto";
+}
+
+.bg-primary {
+    -fx-background-color: #15161B;
+}
+
+.window-button {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+
+.window-minimize-button:hover {
+    -fx-background-color: #3fb6f3;
+}
+
+.window-close-button:hover {
+    -fx-background-color: #fd1919;
+}
+
+.title {
+    -fx-font-size: 20;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.menu-button {
+    -fx-padding: 4 20;
+    -fx-background-color: transparent;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16;
+    -fx-font-weight: light;
+}
+
+.menu-button:hover {
+    -fx-background-color: #3fb6f3;
+}
+
+.main-panel {
+    -fx-font-family: "Roboto";
+    -fx-background-color: #EFF4F8;
+    -fx-padding: 20 10 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.page-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.text-color {
+    -fx-text-fill: #fff;
+}
+
+.primary-btn {
+    -fx-text-fill: #000;
+    -fx-background-color: transparent;
+    -fx-border-color: #000;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-weight: bold;
+}
+
+.primary-btn:hover {
+    -fx-text-fill: #fff;
+    -fx-background-color: #000;
+    -fx-background-radius: 8;
+}
+
+.btn-green {
+    -fx-text-fill: #04e004;
+    -fx-border-color: #04e004;
+}
+
+.btn-green:hover {
+    -fx-background-color: #04e004;
+}
+
+.btn-red {
+    -fx-text-fill: #ff0f0f;
+    -fx-border-color: #ff0f0f;
+}
+
+
+
+.button-sh {
+    -fx-background-color: #ec0a0a;
+}
+
+.select {
+    -fx-background-color: #04a7da;
+}
+
+.stat-ok {
+    -fx-fill: lightgreen;
+}
+
+.stat-error {
+    -fx-fill: red;
+}
+
+.stat-pending {
+    -fx-fill: orange;
+}
+
+.stat-inuse {
+    -fx-fill: cyan;
+}
