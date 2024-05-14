@@ -18,8 +18,12 @@ import java.util.UUID;
 @RestController("/account")
 public class AccountController {
 
-    @Autowired
     AccountManagerService manager;
+
+    @Autowired
+    public AccountController(AccountManagerService manager) {
+        this.manager = AccountManagerService.getInstance();
+    }
 
     @GetMapping("/next")
     public ResponseEntity<SuccessResponse<AccountData>> nextAccount() {

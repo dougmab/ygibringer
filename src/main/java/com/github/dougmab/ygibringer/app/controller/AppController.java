@@ -73,7 +73,7 @@ public class AppController {
 
     @FXML
     void toggleServer(ActionEvent event) {
-        if (ConfigurationService.get().inputFile == null) {
+        if (ConfigurationService.getConfig().inputFile == null) {
             System.out.println("Input is null");
             return;
         }
@@ -86,6 +86,7 @@ public class AppController {
             styleClasses.add("btn-green");
             icon.setImage(new Image(Path.of("static", "img", "rocket.png").toString()));
 
+            ConfigurationService.updateManagerState();
             Server.shutdown();
             return;
         }
