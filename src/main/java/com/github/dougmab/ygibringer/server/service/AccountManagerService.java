@@ -4,38 +4,56 @@ import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.Status;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
 import com.github.dougmab.ygibringer.server.exception.EndOfListException;
-import com.github.dougmab.ygibringer.server.model.ConfigurationProperties;
+import com.github.dougmab.ygibringer.server.model.Configuration;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class AccountManagerService {
-    private static final List<Account> allAccounts = new ArrayList<>();
+public class AccountManagerService implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    private static final Queue<Account> pendingAccounts = new LinkedList<>();
-    private static final Queue<Account> concludedAccounts = new LinkedList<>();
+    private final List<Account> allAccounts = new ArrayList<>();
+
+    private final Queue<Account> pendingAccounts = new LinkedList<>();
+    private final Queue<Account> concludedAccounts = new LinkedList<>();
     private final Map<String, Account> managedAccounts = new HashMap<>();
 
-    private final ConfigurationProperties config;
+    private final Configuration config;
 
+    private static AccountManagerService INSTANCE;
 
-    public AccountManagerService() {
-        config = ConfigurationService.get();
+    public static AccountManagerService getInstance() {
+        if (AccountManagerService.INSTANCE == null) {
+            AccountManagerService loadedManager = ConfigurationService.getManagerState();
+
+            if (loadedManager != null) {
+                loadedManager.allAccounts.forEach(Account::syncStatus);
+            }
+
+            if (loadedManager == null) loadedManager = new AccountManagerService();
+
+            AccountManagerService.INSTANCE = loadedManager;
+        }
+        return AccountManagerService.INSTANCE;
+    }
+
+    public static void resetManager() {
+        AccountManagerService.INSTANCE = null;
+        ConfigurationService.removeManagerState();
+        System.gc();
+    }
+
+    private AccountManagerService() {
+        config = ConfigurationService.getConfig();
         getAccounts();
     }
 
     private void getAccounts() {
-        allAccounts.clear();
-        pendingAccounts.clear();
-        concludedAccounts.clear();
-        managedAccounts.clear();
-
         StringBuilder accountsRaw = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(config.inputFile))) {
@@ -54,14 +72,15 @@ public class AccountManagerService {
         while(matcher.find()) {
             Account account = new Account(matcher.group(1), matcher.group(2));
             System.out.println(account);
-            AccountManagerService.allAccounts.add(account);
-            AccountManagerService.pendingAccounts.add(account);
+            account.syncStatus();
+            allAccounts.add(account);
+            pendingAccounts.add(account);
         }
     }
 
     public Account getNextAccount(String token) {
         // Associates account to client
-        Account account = AccountManagerService.pendingAccounts.poll();
+        Account account = pendingAccounts.poll();
 
         if (account == null) throw new EndOfListException("Account list has reached it's end");
 
@@ -82,7 +101,7 @@ public class AccountManagerService {
     }
 
     public static Iterator<Account> getIterator() {
-        return AccountManagerService.allAccounts.iterator();
+        return AccountManagerService.getInstance().allAccounts.iterator();
     }
 
 }

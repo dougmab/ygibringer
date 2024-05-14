@@ -88,7 +88,7 @@
                   <String fx:value="side-section" />
                </styleClass>
                <children>
-                  <Button fx:id="addStatusBtn" mnemonicParsing="false" styleClass="option-btn" text="Adicionar Status">
+                  <Button mnemonicParsing="false" onAction="#addNewStatus" styleClass="option-btn" text="Adicionar Status">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

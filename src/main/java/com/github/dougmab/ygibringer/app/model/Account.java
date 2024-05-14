@@ -3,10 +3,17 @@ package com.github.dougmab.ygibringer.app.model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class Account {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Account implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String login;
     private final String password;
-    private ObjectProperty<Status> status = new SimpleObjectProperty<>(Status.pending());
+    private transient ObjectProperty<Status> statusProperty;
+    private Status status = Status.pending();
 
     public Account(String login, String password) {
         this.login = login;
@@ -22,15 +29,22 @@ public class Account {
     }
 
     public Status getStatus() {
-        return status.get();
+        return status;
     }
 
-    public void setStatus(Status status) {
-        this.status.set(status);
+    public void setStatus(Status statusProperty) {
+        this.statusProperty.set(statusProperty);
     }
 
     public ObjectProperty<Status> statusProperty() {
-        return status;
+        return statusProperty;
+    }
+
+    public void syncStatus() {
+        statusProperty = new SimpleObjectProperty<>(status);
+        statusProperty.addListener((obs, oldValue, newValue) -> {
+            status = newValue;
+        });
     }
 
     @Override

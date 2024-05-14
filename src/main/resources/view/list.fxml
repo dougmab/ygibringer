@@ -36,7 +36,7 @@
                      </graphic>
                   </Label>
                   <Button fx:id="saveBtn" layoutX="32.0" layoutY="-6.0" mnemonicParsing="false" onAction="#saveReport" styleClass="primary-btn" text="Salvar Relatório" />
-                  <Button layoutX="33.0" layoutY="37.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="108.0" styleClass="reset-btn" text="Reiniciar" />
+                  <Button layoutX="33.0" layoutY="37.0" mnemonicParsing="false" onAction="#resetServer" prefHeight="23.0" prefWidth="108.0" styleClass="reset-btn" text="Reiniciar" />
                </children>
             </AnchorPane>
          </right>

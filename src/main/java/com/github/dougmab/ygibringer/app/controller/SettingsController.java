@@ -1,9 +1,12 @@
 package com.github.dougmab.ygibringer.app.controller;
 
+import com.github.dougmab.ygibringer.app.model.Status;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
-import com.github.dougmab.ygibringer.server.model.ConfigurationProperties;
+import com.github.dougmab.ygibringer.server.model.Configuration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,12 +15,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class SettingsController {
-
-    @FXML
-    private Button addStatusBtn;
 
     @FXML
     private Button chooseInputBtn;
@@ -37,11 +41,15 @@ public class SettingsController {
     @FXML
     private VBox statusList;
 
+    private List<Status> customStatus = new ArrayList<>();
+    private final Consumer<Status> addToStatusList = customStatus::add;
+    private final Consumer<Status> removeFromStatusList = customStatus::remove;
+
     private File inputFile;
 
     @FXML
     public void initialize() {
-        ConfigurationProperties configs = ConfigurationService.get();
+        Configuration configs = ConfigurationService.getConfig();
 
         if (configs == null) return;
 
@@ -51,6 +59,22 @@ public class SettingsController {
         outputSrcField.setText(Path.of(configs.outputFileName).getFileName().toString());
         errorSrcField.setText(Path.of(configs.errorFileName).getFileName().toString());
         regexStrField.setText(configs.regexStr);
+
+        // Loads saved status into nodes
+        if (configs.customStatus != null) {
+            for (Status status : configs.customStatus) {
+                customStatus.add(status);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/status.fxml"));
+                try {
+                    Node statusNode = loader.load();
+                    StatusController controller = loader.getController();
+                    controller.init(status, removeFromStatusList);
+                    statusList.getChildren().add(statusNode);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
         System.out.println(configs);
     }
@@ -68,7 +92,22 @@ public class SettingsController {
 
     @FXML
     void saveOptions(ActionEvent event) {
-        ConfigurationService.setConfig(inputFile, outputSrcField.getText(), errorSrcField.getText(), regexStrField.getText());
+        ConfigurationService.setConfig(inputFile, outputSrcField.getText(), errorSrcField.getText(), regexStrField.getText(), customStatus);
     }
 
+    @FXML
+    void addNewStatus(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/status.fxml"));
+        try {
+            // Loads status component
+            Node statusNode = loader.load();
+            StatusController controller = loader.getController();
+            controller.setConsumers(addToStatusList, removeFromStatusList);
+            // inserts component
+            statusList.getChildren().add(statusNode);
+            System.out.println(customStatus);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

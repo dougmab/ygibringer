@@ -2,7 +2,9 @@ package com.github.dougmab.ygibringer.app.controller;
 
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.StatusType;
+import com.github.dougmab.ygibringer.app.service.ConfigurationService;
 import com.github.dougmab.ygibringer.server.service.AccountManagerService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,8 @@ import java.util.Map;
 public class ListController {
 
     private final Map<StatusType, VBox> listMap = new HashMap<>();
+    private final Map<Account, Node> accountNodeMap = new HashMap<>();
+    private boolean isAccountsInserted = false;
 
     @FXML
     private VBox concludedList;
@@ -41,13 +45,16 @@ public class ListController {
         listMap.put(StatusType.MANAGING, inProgressList);
         listMap.put(StatusType.SUCCESS, concludedList);
         listMap.put(StatusType.ERROR, concludedList);
+
+        if (ConfigurationService.getManagerState() != null) {
+           insertAccounts();
+        }
     }
 
     public void insertAccounts() {
-        inProgressList.getChildren().clear();
-        concludedList.getChildren().clear();
-        pendingList.getChildren().clear();
+        if (isAccountsInserted) return;
 
+        clearLists();
         for (Iterator<Account> it = AccountManagerService.getIterator(); it.hasNext(); ) {
             Account account = it.next();
             System.out.println(account);
@@ -58,10 +65,13 @@ public class ListController {
                 Node accountNode = loader.load();
                 AccountController controller = loader.getController();
                 controller.init(account);
-
+                accountNodeMap.put(account, accountNode);
                 account.statusProperty().addListener((obs, oldStatus, newStatus) -> {
-                    listMap.get(oldStatus.getType()).getChildren().remove(accountNode);
-                    listMap.get(newStatus.getType()).getChildren().add(accountNode);
+                    Platform.runLater(() -> {
+                        System.out.println("Status updated");
+                        listMap.get(oldStatus.getType()).getChildren().remove(accountNode);
+                        listMap.get(newStatus.getType()).getChildren().add(accountNode);
+                    });
                 });
 
                 listMap.get(account.getStatus().getType()).getChildren().add(accountNode);
@@ -69,12 +79,27 @@ public class ListController {
                 e.printStackTrace();
             }
         }
-            System.out.println("------------");
+        isAccountsInserted = true;
     }
 
     @FXML
     void saveReport(ActionEvent event) {
 
     }
+
+    @FXML
+    void resetServer(ActionEvent event) {
+        AccountManagerService.resetManager();
+        ConfigurationService.updateManagerState();
+        clearLists();
+        isAccountsInserted = false;
+    }
+
+    public void clearLists() {
+        inProgressList.getChildren().clear();
+        concludedList.getChildren().clear();
+        pendingList.getChildren().clear();
+    }
+
 
 }
