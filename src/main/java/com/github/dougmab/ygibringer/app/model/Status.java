@@ -2,14 +2,11 @@ package com.github.dougmab.ygibringer.app.model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Status implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final List<Status> customStatus = new ArrayList<>();
     private static final Status pending = new Status("Pendente", "PENDENTE", StatusType.PENDING);
     private static final Status managing = new Status("Em Progresso", "EM PROGRESSO", StatusType.MANAGING);
 
@@ -55,10 +52,6 @@ public class Status implements Serializable {
 
     public static Status managing() {
         return managing;
-    }
-
-    public static Status getStatusByIndex(int statusIndex) {
-        return customStatus.get(statusIndex);
     }
 
     @Override

@@ -7,15 +7,13 @@ import com.github.dougmab.ygibringer.server.model.SuccessResponse;
 import com.github.dougmab.ygibringer.server.service.AccountManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.UUID;
 
-@RestController("/account")
+@RestController
+@RequestMapping("/account")
 public class AccountController {
 
     AccountManagerService manager;

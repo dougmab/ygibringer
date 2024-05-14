@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </Label>
-      <Label fx:id="statusLabel" onMouseClicked="#changeStat" prefHeight="17.0" prefWidth="118.0" text="Pendente" GridPane.columnIndex="2">
+      <Label fx:id="statusLabel" onMouseClicked="#changeStat" prefHeight="17.0" text="Pendente" GridPane.columnIndex="2">
          <graphic>
             <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -92,7 +92,7 @@ public class AccountManagerService implements Serializable {
     public Account updateAccount(String token, int statusIndex) throws IOException {
         // Gets account and disassociates client
         Account account = managedAccounts.remove(token);
-        account.setStatus(Status.getStatusByIndex(statusIndex));
+        account.setStatus(ConfigurationService.getConfig().customStatus.get(statusIndex));
 
         // Add account to concluded list
         concludedAccounts.add(account);

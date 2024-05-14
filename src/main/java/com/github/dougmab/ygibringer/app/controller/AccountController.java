@@ -3,6 +3,7 @@ package com.github.dougmab.ygibringer.app.controller;
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.Status;
 import com.github.dougmab.ygibringer.app.model.StatusType;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -53,14 +54,15 @@ public class AccountController {
     }
 
     private void changeStatusLabel(Status oldStatus, Status newStatus) {
-        statusLabel.setText(newStatus.getTitle());
+        Platform.runLater(() -> {
+            statusLabel.setText(newStatus.getTitle());
 
-        ImageView icon = (ImageView) statusLabel.getGraphic();
-        icon.setImage(new Image(Path.of("static", "img", newStatus.getType().getIconName()).toString()));
+            ImageView icon = (ImageView) statusLabel.getGraphic();
+            icon.setImage(new Image(Path.of("static", "img", newStatus.getType().getIconName()).toString()));
 
-        var classList = statusLabel.getStyleClass();
-        classList.remove(oldStatus.getType().getCssClass());
-        classList.add(newStatus.getType().getCssClass());
-
+            var classList = statusLabel.getStyleClass();
+            classList.remove(oldStatus.getType().getCssClass());
+            classList.add(newStatus.getType().getCssClass());
+        });
     }
 }
