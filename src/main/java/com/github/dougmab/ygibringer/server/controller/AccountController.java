@@ -32,10 +32,9 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("token") String token, @RequestParam(name = "status", required = false) String status) throws IOException {
-        if (status == null) status = "OK";
+    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("token") String token, @RequestParam(name = "status") int status) throws IOException {
 
-        manager.finishAccount(token, status, status.equals("OK"));
+        manager.updateAccount(token, status);
 
         return ResponseEntity.ok(new SuccessResponse<>(
                 new MessageData("Account status updated")

@@ -4,15 +4,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="830.0" styleClass="bg-primary" stylesheets="@../static/css/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.PanelController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="830.0" styleClass="bg-primary" stylesheets="@../static/css/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.AppController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="669.0" spacing="2.0" style="-fx-background-color: #0a0a0a;" styleClass="bg-primary" BorderPane.alignment="CENTER">
          <children>
@@ -54,45 +54,35 @@
    <center>
       <BorderPane styleClass="body" BorderPane.alignment="CENTER">
          <center>
-            <AnchorPane prefHeight="440.0" prefWidth="600.0" styleClass="main-panel" BorderPane.alignment="CENTER" />
+            <StackPane fx:id="viewDisplay" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="440.0" prefWidth="600.0" styleClass="main-panel" />
+               </children>
+            </StackPane>
          </center>
-         <top>
-            <BorderPane prefHeight="51.0" prefWidth="824.0" BorderPane.alignment="CENTER">
-               <left>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="14.0" layoutY="11.0" styleClass="title" text="YgiBringer">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../static/img/icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-               </left>
-            </BorderPane>
-         </top>
          <left>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" BorderPane.alignment="CENTER">
+            <BorderPane prefHeight="531.0" prefWidth="81.0" styleClass="bg-primary" BorderPane.alignment="CENTER">
                <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="407.0" prefWidth="53.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="menu-button" text="Inicial">
+                        <Button fx:id="startBtn" alignment="BASELINE_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toggleServer">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../static/img/home.png" />
+                                    <Image url="@../static/img/rocket.png" />
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="menu-button" />
+                              <String fx:value="btn-green" />
+                              <String fx:value="start-btn" />
+                           </styleClass>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="menu-button" text="Lista">
+                        <Button fx:id="listBtn" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeView" styleClass="menu-button">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -104,7 +94,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="43.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="menu-button" text="Terminal">
+                        <Button fx:id="terminalBtn" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="43.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeView" styleClass="menu-button">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -116,7 +106,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" layoutX="20.0" layoutY="76.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" styleClass="menu-button" text="Configurações">
+                        <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="76.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeView" styleClass="menu-button">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -135,8 +125,11 @@
                   </VBox>
                </center>
                <bottom>
-                  <AnchorPane prefHeight="44.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <AnchorPane prefHeight="49.0" prefWidth="81.0" BorderPane.alignment="CENTER" />
                </bottom>
+               <top>
+                  <AnchorPane prefHeight="49.0" prefWidth="81.0" BorderPane.alignment="CENTER" />
+               </top>
             </BorderPane>
          </left>
       </BorderPane>

@@ -1,45 +1,40 @@
 package com.github.dougmab.ygibringer.app.controller;
 
 import com.github.dougmab.ygibringer.app.model.Account;
+import com.github.dougmab.ygibringer.app.model.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
 
 public class AccountController {
 
     @FXML
-    private Label indexDisplay;
+    private Label loginLabel;
 
     @FXML
-    private Text loginText;
+    private Label passwordLabel;
 
     @FXML
-    private Text passwordText;
+    private Label managerLabel;
 
     @FXML
-    private Text statusDisplay;
+    private Label statusLabel;
 
-    public void init(Account accountModel, int index) {
-        indexDisplay.setText(Integer.toString(index));
-        loginText.setText(accountModel.getLogin());
-        passwordText.setText(accountModel.getPassword());
-        statusDisplay.textProperty().bindBidirectional(accountModel.statusProperty());
+    private Status status;
 
-        accountModel.statusProperty().addListener((observable, oldValue, newValue) -> changeColorDisplay(newValue));
+    public void init(Account accountModel) {
+        loginLabel.setText(accountModel.getLogin());
+        passwordLabel.setText(accountModel.getPassword());
+        status = accountModel.getStatus();
     }
 
-    private void changeColorDisplay(String status) {
-        var styleClasses = statusDisplay.getStyleClass();
-        System.out.println(styleClasses);
-        System.out.println("aqui");
-        styleClasses.clear();
-        switch (status) {
-            case "OK" -> styleClasses.add("stat-ok");
-            case "PENDENTE" -> styleClasses.add("stat-pending");
-            case "CONFIGURANDO" -> styleClasses.add("stat-inuse");
-            default -> styleClasses.add("stat-error");
-        }
+    @FXML
+    void changeStat(MouseEvent event) {
 
-        System.out.println(styleClasses);
+    }
+
+    @FXML
+    void editAccount(MouseEvent event) {
+
     }
 }

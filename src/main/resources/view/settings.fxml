@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="620.0" styleClass="main-panel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.SettingsController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-panel" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.SettingsController">
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="300.0" prefWidth="291.0" style="-fx-background-radius: 8 0 0 8; -fx-border-radius: 8 0 0 8; -fx-border-width: 1 0 1 1; -fx-border-color: #cccbcb;" styleClass="side-section-bg">
          <content>
@@ -22,7 +22,7 @@
                <children>
                   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="28.0" prefWidth="286.0" styleClass="option" text="Arquivo de Entrada:">
                      <graphic>
-                        <Button fx:id="chooseInputBtn" mnemonicParsing="false" styleClass="option-btn" text="Escolher Arquivo">
+                        <Button fx:id="chooseInputBtn" mnemonicParsing="false" onAction="#chooseInputFile" styleClass="option-btn" text="Escolher Arquivo">
                            <graphic>
                               <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -35,17 +35,17 @@
                   </Label>
                   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="20.0" layoutY="58.0" prefHeight="28.0" prefWidth="283.0" styleClass="option" text="Arquivo de Saída:">
                      <graphic>
-                        <TextField fx:id="outputSrc" prefHeight="28.0" prefWidth="139.0" />
+                        <TextField fx:id="outputSrcField" prefHeight="28.0" prefWidth="139.0" />
                      </graphic>
                   </Label>
                   <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="20.0" layoutY="58.0" prefHeight="28.0" prefWidth="283.0" styleClass="option" text="Arquivo de Erros:">
                      <graphic>
-                        <TextField fx:id="errorSrc" prefHeight="28.0" prefWidth="139.0" />
+                        <TextField fx:id="errorSrcField" prefHeight="28.0" prefWidth="139.0" />
                      </graphic>
                   </Label>
                   <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="20.0" layoutY="96.0" prefHeight="204.0" prefWidth="283.0" styleClass="option" text="Regex:">
                      <graphic>
-                        <TextArea fx:id="regexStr" prefHeight="104.0" prefWidth="141.0" />
+                        <TextArea fx:id="regexStrField" prefHeight="104.0" prefWidth="141.0" />
                      </graphic>
                   </Label>
                </children>

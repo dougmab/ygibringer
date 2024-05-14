@@ -15,7 +15,7 @@
          <children>
             <AnchorPane prefHeight="351.0" prefWidth="597.0">
                <children>
-                  <Button fx:id="startBtn" layoutX="169.0" layoutY="30.0" mnemonicParsing="false" onAction="#toggleServer" prefHeight="56.0" prefWidth="260.0" text="Iniciar">
+                  <Button fx:id="toggleBtn" layoutX="169.0" layoutY="30.0" mnemonicParsing="false" onAction="#toggleServer" prefHeight="56.0" prefWidth="260.0" text="Iniciar">
                      <styleClass>
                         <String fx:value="primary-btn" />
                         <String fx:value="btn-green" />

@@ -1,24 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="60.0" prefWidth="259.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #131319FF;" styleClass="history" stylesheets="@../static/css/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.AccountController">
+<GridPane prefHeight="17.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.AccountController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <Label layoutX="26.0" layoutY="6.0" styleClass="text-color" text="Login:" />
-      <Label layoutX="25.0" layoutY="22.0" styleClass="text-color" text="Senha:" />
-      <Text fx:id="passwordText" layoutX="67.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #fff;" text="null" wrappingWidth="155.13671875" />
-      <Text fx:id="loginText" layoutX="67.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #fff;" text="null" wrappingWidth="155.13671875" />
-      <Text fx:id="statusDisplay" layoutX="25.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="stat-pending" text="PENDENTE" wrappingWidth="212.13671875" />
-      <Label fx:id="indexDisplay" layoutX="7.0" layoutY="23.0" text="0" textFill="#a4a4a4">
-         <font>
-            <Font size="10.0" />
-         </font></Label>
+      <Label fx:id="loginLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="thomas.jeff123" />
+      <Label fx:id="passwordLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="senha123" GridPane.columnIndex="1">
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../static/img/visibility_off.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Label fx:id="statusLabel" maxWidth="1.7976931348623157E308" onMouseClicked="#changeStat" prefHeight="17.0" prefWidth="118.0" text="Pendente" GridPane.columnIndex="2">
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../static/img/pending.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <styleClass>
+            <String fx:value="pending-color" />
+            <String fx:value="stat" />
+         </styleClass>
+      </Label>
+      <Label fx:id="managerLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="douglas_chrome" GridPane.columnIndex="3">
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../static/img/manage_account.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
+      <ImageView fitHeight="17.0" fitWidth="16.0" onDragDetected="#editAccount" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="4">
+         <image>
+            <Image url="@../static/img/save.png" />
+         </image>
+      </ImageView>
    </children>
-   <padding>
-      <Insets bottom="3.0" right="20.0" />
-   </padding>
-</AnchorPane>
+</GridPane>

@@ -18,7 +18,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/app.fxml")));
         Scene scene = new Scene(root);
 
-        stage.setResizable(false);
+//        stage.setResizable(false);
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("YgiBringer");
 
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/static/img/icon.png")));

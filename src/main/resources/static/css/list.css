@@ -19,3 +19,32 @@
     -fx-margin: 0 0 1 0;
     -fx-padding: 5;
 }
+
+.reset-btn {
+    -fx-background-color: #000;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 8;
+}
+
+.stat {
+    -fx-background-radius: 4;
+}
+
+.pending-color {
+    -fx-text-fill: #f8b12f;
+    -fx-background-color: #f8b12f12;
+}
+
+.concluded-color {
+    -fx-text-fill: #68f82f;
+    -fx-background-color: #68f82f12;
+}
+
+.progress-color {
+    -fx-text-fill: #2ff8c9;
+    -fx-background-color: #2ff8c912;
+}
+.error-color {
+    -fx-text-fill: #fa1a21;
+    -fx-background-color: #fa1a2112;
+}

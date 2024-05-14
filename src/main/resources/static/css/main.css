@@ -1,23 +1,23 @@
 @font-face {
     font-family: 'Roboto';
     src: url('../font/Roboto/Roboto-Regular.ttf');
-    font-weight: normal;
+/*    font-weight: normal;*/
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../font/Roboto/Roboto-Bold.ttf');
-    font-weight: bold;
+/*    font-weight: bold;*/
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../font/Roboto/Roboto-Light.ttf');
-    font-weight: light;
+/*    font-weight: light;*/
 }
 
 .body {
-    -fx-padding: 0 10 10 0;
+    -fx-padding: 8;
     -fx-font-family: "Roboto";
 }
 
@@ -46,11 +46,9 @@
 }
 
 .menu-button {
-    -fx-padding: 4 20;
+    -fx-padding: 4;
     -fx-background-color: transparent;
     -fx-text-fill: #fff;
-    -fx-font-size: 16;
-    -fx-font-weight: light;
 }
 
 .menu-button:hover {
@@ -91,41 +89,18 @@
 }
 
 .btn-green {
-    -fx-text-fill: #04e004;
-    -fx-border-color: #04e004;
-}
-
-.btn-green:hover {
     -fx-background-color: #04e004;
 }
 
 .btn-red {
-    -fx-text-fill: #ff0f0f;
-    -fx-border-color: #ff0f0f;
+    -fx-background-color: #ff0f0f;
 }
 
-
-
-.button-sh {
-    -fx-background-color: #ec0a0a;
+.start-btn {
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
 }
 
-.select {
-    -fx-background-color: #04a7da;
-}
-
-.stat-ok {
-    -fx-fill: lightgreen;
-}
-
-.stat-error {
-    -fx-fill: red;
-}
-
-.stat-pending {
-    -fx-fill: orange;
-}
-
-.stat-inuse {
-    -fx-fill: cyan;
+Button {
+    -fx-cursor: hand;
 }
