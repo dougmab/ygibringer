@@ -32,19 +32,19 @@
 
 .pending-color {
     -fx-text-fill: #f8b12f;
-    -fx-background-color: #f8b12f12;
+    -fx-background-color: #f8b12f25;
 }
 
-.concluded-color {
+.success-color {
     -fx-text-fill: #68f82f;
-    -fx-background-color: #68f82f12;
+    -fx-background-color: #68f82f25;
 }
 
 .progress-color {
     -fx-text-fill: #2ff8c9;
-    -fx-background-color: #2ff8c912;
+    -fx-background-color: #2ff8c925;
 }
 .error-color {
     -fx-text-fill: #fa1a21;
-    -fx-background-color: #fa1a2112;
+    -fx-background-color: #fa1a2125;
 }
