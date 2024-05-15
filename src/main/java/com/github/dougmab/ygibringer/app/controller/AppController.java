@@ -2,6 +2,7 @@ package com.github.dougmab.ygibringer.app.controller;
 
 import com.github.dougmab.ygibringer.Server;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
+import com.github.dougmab.ygibringer.app.service.NotificationService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -37,6 +40,12 @@ public class AppController {
     @FXML
     private StackPane viewDisplay;
 
+    @FXML
+    private VBox messageList;
+
+    @FXML
+    private BorderPane messagePane;
+
     private record View(Node pane, Object controller) {};
     private final Map<Button, View> views = new HashMap<>();
     private Node currentView;
@@ -45,6 +54,8 @@ public class AppController {
     public void initialize() {
         views.put(listBtn, getView("/view/list.fxml"));
         views.put(settingsBtn, getView("/view/settings.fxml"));
+
+        NotificationService.setMessageDisplay(messageList);
 
         listBtn.fire();
     }
@@ -65,10 +76,12 @@ public class AppController {
 
         if (view.pane.equals(currentView)) return;
 
+        Node lastView = currentView;
         currentView = view.pane;
 
-            viewDisplay.getChildren().clear();
+            viewDisplay.getChildren().remove(lastView);
             viewDisplay.getChildren().add(view.pane);
+            messagePane.toFront();
     }
 
     @FXML
@@ -102,5 +115,4 @@ public class AppController {
         ListController controller = (ListController) listView.controller;
         controller.insertAccounts();
     }
-
 }

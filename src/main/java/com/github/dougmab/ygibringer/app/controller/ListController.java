@@ -3,6 +3,7 @@ package com.github.dougmab.ygibringer.app.controller;
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.StatusType;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
+import com.github.dougmab.ygibringer.app.service.NotificationService;
 import com.github.dougmab.ygibringer.server.service.AccountManagerService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,14 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class ListController {
 
     private final Map<StatusType, VBox> listMap = new HashMap<>();
-    private final Map<Account, Node> accountNodeMap = new HashMap<>();
     private boolean isAccountsInserted = false;
 
     @FXML
@@ -59,7 +57,6 @@ public class ListController {
         for (Iterator<Account> it = AccountManagerService.getIterator(); it.hasNext(); ) {
             Account account = it.next();
             count++;
-            System.out.println(account);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/account.fxml"));
 
@@ -67,7 +64,6 @@ public class ListController {
                 Node accountNode = loader.load();
                 AccountController controller = loader.getController();
                 controller.init(account);
-                accountNodeMap.put(account, accountNode);
                 account.statusProperty().addListener((obs, oldStatus, newStatus) -> {
                     Platform.runLater(() -> {
                         System.out.println("Status updated");
@@ -90,11 +86,11 @@ public class ListController {
         boolean isReportSaved = AccountManagerService.getInstance().saveAccountsReport();
 
         if(isReportSaved) {
-            System.out.println("Report saved");
+            NotificationService.send("Relatório salvo com sucesso");
             return;
         }
 
-        System.out.println("Report save attempt failed");
+        NotificationService.send("Erro ao salvar o relatório");
     }
 
     @FXML
@@ -111,6 +107,5 @@ public class ListController {
         pendingList.getChildren().clear();
         totalCount.setText("0");
     }
-
 
 }

@@ -72,6 +72,15 @@
     -fx-text-fill: #fff;
 }
 
+.notification-display {
+    -fx-padding: 5;
+    -fx-background-color: #000;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 4;
+    -fx-margin: 10;
+    -fx-alignment: CENTER;
+}
+
 .primary-btn {
     -fx-text-fill: #000;
     -fx-background-color: transparent;

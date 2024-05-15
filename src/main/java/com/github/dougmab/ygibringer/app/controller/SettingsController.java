@@ -2,6 +2,7 @@ package com.github.dougmab.ygibringer.app.controller;
 
 import com.github.dougmab.ygibringer.app.model.Status;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
+import com.github.dougmab.ygibringer.app.service.NotificationService;
 import com.github.dougmab.ygibringer.server.model.Configuration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,6 +94,7 @@ public class SettingsController {
     @FXML
     void saveOptions(ActionEvent event) {
         ConfigurationService.setConfig(inputFile, outputSrcField.getText(), errorSrcField.getText(), regexStrField.getText(), customStatus);
+        NotificationService.send("Configurações salvas com sucesso");
     }
 
     @FXML
