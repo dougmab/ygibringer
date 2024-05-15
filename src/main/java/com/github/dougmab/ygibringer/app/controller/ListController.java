@@ -55,8 +55,10 @@ public class ListController {
         if (isAccountsInserted) return;
 
         clearLists();
+        int count = 0;
         for (Iterator<Account> it = AccountManagerService.getIterator(); it.hasNext(); ) {
             Account account = it.next();
+            count++;
             System.out.println(account);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/account.fxml"));
@@ -80,6 +82,7 @@ public class ListController {
             }
         }
         isAccountsInserted = true;
+        totalCount.setText(Integer.toString(count));
     }
 
     @FXML
@@ -99,6 +102,7 @@ public class ListController {
         inProgressList.getChildren().clear();
         concludedList.getChildren().clear();
         pendingList.getChildren().clear();
+        totalCount.setText("0");
     }
 
 

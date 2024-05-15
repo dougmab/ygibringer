@@ -26,7 +26,7 @@
          <right>
             <AnchorPane prefHeight="88.0" prefWidth="147.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label contentDisplay="RIGHT" layoutX="96.0" layoutY="71.0" text="Total: ">
+                  <Label contentDisplay="RIGHT" layoutX="96.0" layoutY="71.0" text="Total:">
                      <graphic>
                         <Label fx:id="totalCount" text="0">
                            <font>
