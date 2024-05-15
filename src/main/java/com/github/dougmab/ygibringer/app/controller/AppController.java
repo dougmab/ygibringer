@@ -60,7 +60,7 @@ public class AppController {
         listBtn.fire();
     }
 
-    public View getView(String fxmlPath) {
+    private View getView(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
         try {

@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,16 +23,20 @@
    </rowConstraints>
    <children>
       <Label fx:id="loginLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="thomas.jeff123" />
-      <Label fx:id="passwordLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="senha123" GridPane.columnIndex="1">
+      <Label fx:id="passwordLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="•••••••" GridPane.columnIndex="1">
          <graphic>
-            <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../static/img/visibility_off.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+            <Button fx:id="visibilityButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changePasswordVisibility" prefHeight="14.0" prefWidth="14.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../static/img/visibility.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+            </Button>
          </graphic>
       </Label>
       <Label fx:id="statusLabel" onMouseClicked="#changeStat" prefHeight="17.0" text="Pendente" GridPane.columnIndex="2">
