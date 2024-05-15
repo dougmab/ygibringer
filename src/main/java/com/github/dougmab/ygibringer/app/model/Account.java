@@ -49,7 +49,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("login: %s%nsenha: %s (%s)%n%n", getLogin(), getPassword(), getStatus());
+        return String.format("login: %s%nsenha: %s (%s)%n%n", getLogin(), getPassword(), getStatus().getValue());
     }
 
 }

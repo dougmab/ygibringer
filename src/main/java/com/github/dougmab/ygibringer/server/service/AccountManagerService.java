@@ -2,12 +2,16 @@ package com.github.dougmab.ygibringer.server.service;
 
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.Status;
+import com.github.dougmab.ygibringer.app.model.StatusType;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
 import com.github.dougmab.ygibringer.server.exception.EndOfListException;
 import com.github.dougmab.ygibringer.server.model.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,6 +102,39 @@ public class AccountManagerService implements Serializable {
         concludedAccounts.add(account);
 
         return account;
+    }
+
+    public boolean saveAccountsReport() {
+        StringBuilder successAccounts = new StringBuilder();
+        StringBuilder errorAccounts = new StringBuilder();
+        int successCount = 0;
+        int errorCount = 0;
+
+        Configuration config = ConfigurationService.getConfig();
+        for (Account account : concludedAccounts) {
+            if (account.getStatus().getType().equals(StatusType.SUCCESS)) {
+                successAccounts.append(account);
+                successCount++;
+            }
+
+            if (account.getStatus().getType().equals(StatusType.ERROR)) {
+                errorAccounts.append(account);
+                errorCount++;
+            }
+        }
+
+        Path successPath = config.inputFile.toPath().getParent().resolve(config.outputFileName.replace("{count}", Integer.toString(successCount)));
+        Path errorPath = config.inputFile.toPath().getParent().resolve(config.errorFileName.replace("{count}", Integer.toString(errorCount)));
+
+        try {
+            Files.writeString(successPath, successAccounts.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.writeString(errorPath, errorAccounts.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public static Iterator<Account> getIterator() {

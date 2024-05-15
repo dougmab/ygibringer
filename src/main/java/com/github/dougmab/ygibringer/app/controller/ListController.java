@@ -87,7 +87,14 @@ public class ListController {
 
     @FXML
     void saveReport(ActionEvent event) {
+        boolean isReportSaved = AccountManagerService.getInstance().saveAccountsReport();
 
+        if(isReportSaved) {
+            System.out.println("Report saved");
+            return;
+        }
+
+        System.out.println("Report save attempt failed");
     }
 
     @FXML
