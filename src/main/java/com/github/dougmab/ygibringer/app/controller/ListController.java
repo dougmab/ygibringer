@@ -1,5 +1,6 @@
 package com.github.dougmab.ygibringer.app.controller;
 
+import com.github.dougmab.ygibringer.Server;
 import com.github.dougmab.ygibringer.app.model.Account;
 import com.github.dougmab.ygibringer.app.model.StatusType;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
@@ -99,6 +100,14 @@ public class ListController {
         ConfigurationService.updateManagerState();
         clearLists();
         isAccountsInserted = false;
+
+        if (Server.isRunning()) {
+            Server.shutdown();
+            Server.start(new String[0]);
+            NotificationService.send("Servidor reiniciado");
+            insertAccounts();
+        }
+
     }
 
     public void clearLists() {

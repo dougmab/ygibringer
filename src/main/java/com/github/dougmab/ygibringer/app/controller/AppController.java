@@ -99,7 +99,6 @@ public class AppController {
             styleClasses.add("btn-green");
             icon.setImage(new Image(Path.of("static", "img", "rocket.png").toString()));
 
-            ConfigurationService.updateManagerState();
             Server.shutdown();
             return;
         }

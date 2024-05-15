@@ -1,5 +1,6 @@
 package com.github.dougmab.ygibringer;
 
+import com.github.dougmab.ygibringer.app.service.ConfigurationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -21,6 +22,7 @@ public class Server {
 		if (!isRunning) return;
 
 		System.out.println("Shutdown Server...");
+		ConfigurationService.updateManagerState();
 		context.close();
 		isRunning = false;
 	}

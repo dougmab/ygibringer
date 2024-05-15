@@ -27,6 +27,10 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest((event) -> {
+            if (Server.isRunning()) Server.shutdown();
+        });
     }
 
     public static void main(String[] args) {
