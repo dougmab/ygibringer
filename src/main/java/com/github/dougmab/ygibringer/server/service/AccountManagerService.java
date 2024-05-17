@@ -104,6 +104,17 @@ public class AccountManagerService implements Serializable {
         return account;
     }
 
+    public Account updateAccountWithCustomizedValue(String token, Status status) {
+        // Gets account and disassociates client
+        Account account = managedAccounts.remove(token);
+        account.setStatus(status);
+
+        // Add account to concluded list
+        concludedAccounts.add(account);
+
+        return account;
+    }
+
     public boolean saveAccountsReport() {
         StringBuilder successAccounts = new StringBuilder();
         StringBuilder errorAccounts = new StringBuilder();

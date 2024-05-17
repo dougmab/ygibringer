@@ -22,8 +22,12 @@ public class Main extends Application {
 //        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("YgiBringer");
 
-        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/static/img/icon.png")));
-        stage.getIcons().add(icon);
+        stage.getIcons().addAll(
+            new Image("static/icons/icon16.png"),
+            new Image("static/icons/icon32.png"),
+            new Image("static/icons/icon64.png"),
+            new Image("static/icons/icon256.png")
+        );
 
         stage.setScene(scene);
         stage.show();

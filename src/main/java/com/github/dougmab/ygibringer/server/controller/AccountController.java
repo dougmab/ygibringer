@@ -1,6 +1,8 @@
 package com.github.dougmab.ygibringer.server.controller;
 
 import com.github.dougmab.ygibringer.app.model.Account;
+import com.github.dougmab.ygibringer.app.model.Status;
+import com.github.dougmab.ygibringer.app.model.StatusType;
 import com.github.dougmab.ygibringer.server.model.AccountData;
 import com.github.dougmab.ygibringer.server.model.MessageData;
 import com.github.dougmab.ygibringer.server.model.SuccessResponse;
@@ -34,12 +36,22 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("token") String token, @RequestParam(name = "status") int status) throws IOException {
+    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("token") String token, @RequestParam("status") int status) throws IOException {
 
         manager.updateAccount(token, status);
 
         return ResponseEntity.ok(new SuccessResponse<>(
                 new MessageData("Account status updated")
+        ));
+    }
+
+    @PutMapping("/suspended")
+    public ResponseEntity<SuccessResponse<MessageData>> blockAccount(@RequestParam("token") String token, @RequestParam("message") String message) {
+
+        manager.updateAccountWithCustomizedValue(token, new Status("Suspenso", message, StatusType.ERROR));
+
+        return ResponseEntity.ok(new SuccessResponse<>(
+                new MessageData("Account status updated with block message")
         ));
     }
 }
