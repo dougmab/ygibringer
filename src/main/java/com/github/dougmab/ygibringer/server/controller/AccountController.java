@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/account")
@@ -25,20 +24,28 @@ public class AccountController {
         this.manager = AccountManagerService.getInstance();
     }
 
-    @GetMapping("/next")
-    public ResponseEntity<SuccessResponse<AccountData>> nextAccount() {
-        String id = UUID.randomUUID().toString();
-        Account account = manager.getNextAccount(id);
+    @GetMapping("/get")
+    public ResponseEntity<SuccessResponse<AccountData>> getAccount(@RequestParam("user") String user) {
+        Account account = manager.getManagedAccount(user);
 
         return ResponseEntity.ok(
-                new SuccessResponse<>(new AccountData(id, account.getLogin(), account.getPassword()))
+                new SuccessResponse<>(new AccountData(user, account.getLogin(), account.getPassword()))
+        );
+    }
+
+    @GetMapping("/next")
+    public ResponseEntity<SuccessResponse<AccountData>> nextAccount(@RequestParam("user") String user) {
+        Account account = manager.getNextAccount(user);
+
+        return ResponseEntity.ok(
+                new SuccessResponse<>(new AccountData(user, account.getLogin(), account.getPassword()))
         );
     }
 
     @PutMapping("/update")
-    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("token") String token, @RequestParam("status") int status) throws IOException {
+    public ResponseEntity<SuccessResponse<MessageData>> updateAccount(@RequestParam("user") String user, @RequestParam("status") int status) throws IOException {
 
-        manager.updateAccount(token, status);
+        manager.updateAccount(user, status);
 
         return ResponseEntity.ok(new SuccessResponse<>(
                 new MessageData("Account status updated")
@@ -46,9 +53,9 @@ public class AccountController {
     }
 
     @PutMapping("/suspended")
-    public ResponseEntity<SuccessResponse<MessageData>> blockAccount(@RequestParam("token") String token, @RequestParam("message") String message) {
+    public ResponseEntity<SuccessResponse<MessageData>> blockAccount(@RequestParam("user") String user, @RequestParam("message") String message) {
 
-        manager.updateAccountWithCustomizedValue(token, new Status("Suspenso", message, StatusType.ERROR));
+        manager.updateAccountWithCustomizedValue(user, new Status("Suspenso", message, StatusType.ERROR));
 
         return ResponseEntity.ok(new SuccessResponse<>(
                 new MessageData("Account status updated with block message")

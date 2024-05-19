@@ -52,7 +52,7 @@
             <String fx:value="stat" />
          </styleClass>
       </Label>
-      <Label fx:id="managerLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="douglas_chrome" GridPane.columnIndex="3">
+      <Label fx:id="managerLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" GridPane.columnIndex="3">
          <graphic>
             <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                <image>

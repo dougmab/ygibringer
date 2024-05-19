@@ -2,6 +2,8 @@ package com.github.dougmab.ygibringer.server;
 
 import com.github.dougmab.ygibringer.server.exception.CustomBlockDisabledException;
 import com.github.dougmab.ygibringer.server.exception.EndOfListException;
+import com.github.dougmab.ygibringer.server.exception.NoUserAssociatedException;
+import com.github.dougmab.ygibringer.server.exception.UserOccupiedException;
 import com.github.dougmab.ygibringer.server.model.ErrorInfoData;
 import com.github.dougmab.ygibringer.server.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleCustomBlockDisabledException(CustomBlockDisabledException e) {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
                 .body(new ErrorResponse(new ErrorInfoData("custom_block_disabled", e.getLocalizedMessage())));
+    }
+
+    @ExceptionHandler(UserOccupiedException.class)
+    public ResponseEntity<ErrorResponse> handleUserOccupiedException(UserOccupiedException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ErrorResponse(new ErrorInfoData("user_occupied", e.getLocalizedMessage())));
+    }
+
+    @ExceptionHandler(NoUserAssociatedException.class)
+    public ResponseEntity<ErrorResponse> handleNoUserAssociatedException(NoUserAssociatedException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ErrorResponse(new ErrorInfoData("no_user_associated", e.getLocalizedMessage())));
     }
 
     @ExceptionHandler(RuntimeException.class)

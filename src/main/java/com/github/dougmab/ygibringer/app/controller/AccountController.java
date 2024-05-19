@@ -47,6 +47,8 @@ public class AccountController {
         accountModel.statusProperty().addListener((obs, oldValue, newValue) -> {
             changeStatusLabel(oldValue, newValue);
         });
+
+        managerLabel.textProperty().bindBidirectional(accountModel.managerProperty());
     }
 
     @FXML

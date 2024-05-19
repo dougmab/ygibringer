@@ -5,6 +5,8 @@ import com.github.dougmab.ygibringer.app.model.Status;
 import com.github.dougmab.ygibringer.app.model.StatusType;
 import com.github.dougmab.ygibringer.app.service.ConfigurationService;
 import com.github.dougmab.ygibringer.server.exception.EndOfListException;
+import com.github.dougmab.ygibringer.server.exception.NoUserAssociatedException;
+import com.github.dougmab.ygibringer.server.exception.UserOccupiedException;
 import com.github.dougmab.ygibringer.server.model.Configuration;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class AccountManagerService implements Serializable {
             AccountManagerService loadedManager = ConfigurationService.getManagerState();
 
             if (loadedManager != null) {
-                loadedManager.allAccounts.forEach(Account::syncStatus);
+                loadedManager.allAccounts.forEach(Account::syncProperties);
             }
 
             if (loadedManager == null) loadedManager = new AccountManagerService();
@@ -76,26 +78,41 @@ public class AccountManagerService implements Serializable {
         while(matcher.find()) {
             Account account = new Account(matcher.group(1), matcher.group(2));
             System.out.println(account);
-            account.syncStatus();
+            account.syncProperties();
             allAccounts.add(account);
             pendingAccounts.add(account);
         }
     }
 
-    public Account getNextAccount(String token) {
+    public Account getManagedAccount(String user) {
+        Account account = managedAccounts.get(user);
+        if (account == null) throw new NoUserAssociatedException("There is no account associated to this user");
+
+        return account;
+    }
+
+    public Account getNextAccount(String user) {
+        if (managedAccounts.containsKey(user)) throw new UserOccupiedException("User already handling an account");
+
         // Associates account to client
         Account account = pendingAccounts.poll();
 
         if (account == null) throw new EndOfListException("Account list has reached it's end");
 
+
         account.setStatus(Status.managing());
-        managedAccounts.put(token, account);
+        managedAccounts.put(user, account);
+        account.setManager(user);
+        System.out.println(account.getManager());
         return account;
     }
 
-    public Account updateAccount(String token, int statusIndex) throws IOException {
+    public Account updateAccount(String user, int statusIndex) throws IOException {
         // Gets account and disassociates client
-        Account account = managedAccounts.remove(token);
+        Account account = managedAccounts.remove(user);
+
+        if (account == null) throw new NoUserAssociatedException("There is no account associated to this user");
+
         account.setStatus(ConfigurationService.getConfig().customStatus.get(statusIndex));
 
         // Add account to concluded list
