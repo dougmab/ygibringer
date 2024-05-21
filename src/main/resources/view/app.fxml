@@ -18,7 +18,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="830.0" styleClass="bg-primary" stylesheets="@../static/css/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.dougmab.ygibringer.app.controller.AppController">
    <top>
-      <GridPane style="-fx-background-color: #0a0a0a;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="titleBar" style="-fx-background-color: #0a0a0a;" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="417.0" />
             <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -29,7 +29,7 @@
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="669.0" spacing="2.0" style="-fx-background-color: #0a0a0a;" styleClass="bg-primary" GridPane.columnIndex="1">
                <children>
-                  <Button contentDisplay="CENTER" minWidth="40.0" mnemonicParsing="false">
+                  <Button fx:id="btnMinimize" contentDisplay="CENTER" minWidth="40.0" mnemonicParsing="false">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -45,7 +45,23 @@
                         <String fx:value="window-minimize-button" />
                      </styleClass>
                   </Button>
-                  <Button contentDisplay="CENTER" minWidth="40.0" mnemonicParsing="false">
+                  <Button fx:id="btnMaximize" contentDisplay="CENTER" layoutX="467.0" layoutY="10.0" minWidth="40.0" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../static/img/expand.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <styleClass>
+                        <String fx:value="window-button" />
+                        <String fx:value="window-minimize-button" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btnClose" contentDisplay="CENTER" minWidth="40.0" mnemonicParsing="false">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -126,18 +142,6 @@
                               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../static/img/list.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="terminalBtn" alignment="BASELINE_LEFT" layoutX="20.0" layoutY="43.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeView" styleClass="menu-button">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../static/img/terminal.png" />
                                  </image>
                               </ImageView>
                            </graphic>
