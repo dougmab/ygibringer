@@ -75,12 +75,22 @@ public class AccountManagerService implements Serializable {
         Pattern pattern = Pattern.compile(config.regexStr, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(accountsRaw);
 
+        Status repeatedStatus = ConfigurationService.getConfig().repeatedStatus;
+//        System.out.println(repeatedStatus);
         while(matcher.find()) {
             Account account = new Account(matcher.group(1), matcher.group(2));
             System.out.println(account);
             account.syncProperties();
+
+            if (allAccounts.contains(account) && repeatedStatus != null) {
+                account.setStatus(repeatedStatus);
+                account.setManager("YgiBringer");
+                concludedAccounts.add(account);
+            } else {
+                pendingAccounts.add(account);
+            }
+
             allAccounts.add(account);
-            pendingAccounts.add(account);
         }
     }
 

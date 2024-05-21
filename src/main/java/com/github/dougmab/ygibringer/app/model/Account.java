@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Account implements Serializable {
     @Serial
@@ -68,6 +69,19 @@ public class Account implements Serializable {
 //            status = newValue;
 //        });
         managerProperty.set(manager);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(login, account.login) && Objects.equals(password, account.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password);
     }
 
     @Override
