@@ -12,7 +12,7 @@ import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
-public class Main extends Application {
+public class GUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ConfigurationService.load();
@@ -44,6 +44,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(new String[0]);
+        launch(args);
     }
 }

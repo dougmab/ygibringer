@@ -19,7 +19,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,7 +134,7 @@ public class AppController {
         if (Server.isRunning()) {
             styleClasses.remove("btn-red");
             styleClasses.add("btn-green");
-            icon.setImage(new Image(Path.of("static", "img", "rocket.png").toString()));
+            icon.setImage(new Image(getClass().getResource("/static/img/rocket.png").toString()));
 
             Server.shutdown();
             return;
@@ -143,7 +142,7 @@ public class AppController {
 
         styleClasses.remove("btn-green");
         styleClasses.add("btn-red");
-        icon.setImage(new Image(Path.of("static", "img", "rocket_launch.png").toString()));
+        icon.setImage(new Image(getClass().getResource("/static/img/rocket_launch.png").toString()));
 
         Server.start(new String[0]);
 

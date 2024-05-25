@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.nio.file.Path;
-
 public class AccountController {
 
     @FXML
@@ -55,13 +53,13 @@ public class AccountController {
     void changePasswordVisibility(ActionEvent event) {
         ImageView visibilityIcon = (ImageView) visibilityButton.getGraphic();
         if (isPasswordVisible) {
-            visibilityIcon.setImage(new Image(Path.of("static", "img", "visibility.png").toString()));
+            visibilityIcon.setImage(new Image(getClass().getResource("/static/img/visibility.png").toString()));
             passwordLabel.setText("•••••••");
             isPasswordVisible = false;
             return;
         }
 
-        visibilityIcon.setImage(new Image(Path.of("static", "img", "visibility_off.png").toString()));
+        visibilityIcon.setImage(new Image(getClass().getResource("/static/img/visibility_off.png").toString()));
         passwordLabel.setText(password);
         isPasswordVisible = true;
     }
@@ -81,7 +79,7 @@ public class AccountController {
             statusLabel.setText(newStatus.getTitle());
 
             ImageView icon = (ImageView) statusLabel.getGraphic();
-            icon.setImage(new Image(Path.of("static", "img", newStatus.getType().getIconName()).toString()));
+            icon.setImage(new Image(getClass().getResource("/static/img/" + newStatus.getType().getIconName()).toString()));
 
             var classList = statusLabel.getStyleClass();
             classList.remove(oldStatus.getType().getCssClass());
