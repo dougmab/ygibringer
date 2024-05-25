@@ -1,7 +1,7 @@
 package com.github.dougmab.ygibringer;
 
-public class GUI {
+public class Launcher {
     public static void main(String[] args) {
-        App.main(new String[0]);
+        GUI.main(new String[0]);
     }
 }
