@@ -9,6 +9,7 @@ public class Status implements Serializable {
 
     private static final Status pending = new Status("Pendente", "PENDENTE", StatusType.PENDING);
     private static final Status managing = new Status("Em Progresso", "EM PROGRESSO", StatusType.MANAGING);
+    private static final Status skipped = new Status("Pulado", "PULADO", StatusType.ERROR);
 
     private String title;
     private String value;
@@ -52,6 +53,10 @@ public class Status implements Serializable {
 
     public static Status managing() {
         return managing;
+    }
+
+    public static Status skipped() {
+        return skipped;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class AccountManagerService implements Serializable {
             e.printStackTrace();
         };
 
-        Pattern pattern = Pattern.compile(config.regexStr, Pattern.DOTALL);
+        Pattern pattern = Pattern.compile(config.regexStr, Pattern.DOTALL | Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(accountsRaw);
 
         Status repeatedStatus = ConfigurationService.getConfig().repeatedStatus;
@@ -140,6 +140,20 @@ public class AccountManagerService implements Serializable {
         concludedAccounts.add(account);
 
         return account;
+    }
+
+    public void returnAccountToPendingQueue(Account account) {
+        concludedAccounts.remove(account);
+        account.setStatus(Status.pending());
+        account.setManager("");
+        pendingAccounts.add(account);
+    }
+
+    public void skipAccount(Account account) {
+        pendingAccounts.remove(account);
+        account.setStatus(Status.skipped());
+        account.setManager("YgiBringer");
+        concludedAccounts.add(account);
     }
 
     public boolean saveAccountsReport() {

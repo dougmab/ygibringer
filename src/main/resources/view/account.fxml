@@ -22,8 +22,11 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label fx:id="loginLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="thomas.jeff123" />
-      <Label fx:id="passwordLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="118.0" text="•••••••" GridPane.columnIndex="1">
+      <Label fx:id="loginLabel" maxWidth="1.7976931348623157E308" onMouseReleased="#copyLoginContent" prefHeight="17.0" prefWidth="118.0" text="thomas.jeff123">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></Label>
+      <Label fx:id="passwordLabel" maxWidth="1.7976931348623157E308" onMouseReleased="#copyPasswordContent" prefHeight="17.0" prefWidth="118.0" text="•••••••" GridPane.columnIndex="1">
          <graphic>
             <Button fx:id="visibilityButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changePasswordVisibility" prefHeight="14.0" prefWidth="14.0" style="-fx-background-color: transparent;">
                <graphic>
@@ -39,7 +42,7 @@
             </Button>
          </graphic>
       </Label>
-      <Label fx:id="statusLabel" onMouseClicked="#changeStat" prefHeight="17.0" text="Pendente" GridPane.columnIndex="2">
+      <Label fx:id="statusLabel" onMouseReleased="#changeStat" prefHeight="17.0" text="Pendente" GridPane.columnIndex="2">
          <graphic>
             <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
